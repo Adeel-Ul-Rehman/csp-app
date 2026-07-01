@@ -1,5 +1,5 @@
 name: css_mastery_app
-description: "CSS Mastery - AI-Powered Learning"
+description: "Mission Aqsa - CSS Exam Preparation"
 version: 1.0.0+1
 
 environment:
@@ -41,6 +41,7 @@ dependencies:
   permission_handler: ^11.0.1
   share_plus: ^7.2.1
   pdf: ^3.12.0
+  workmanager: ^0.5.0
 
 dev_dependencies:
   flutter_test:
@@ -51,9 +52,20 @@ dev_dependencies:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/icon/app_icon.png"
-  adaptive_icon_background: "#1A73E8"
-  adaptive_icon_foreground: "assets/icon/foreground.png"
+  image_path: "assets/icons/app_icon.png"
+  min_sdk_android: 21
+  web:
+    generate: true
+    image_path: "assets/icons/app_icon.png"
+    background_color: "#6bb1ff"
+    theme_color: "#6bb1ff"
+  windows:
+    generate: true
+    image_path: "assets/icons/app_icon.png"
+    icon_size: 48
+  macos:
+    generate: true
+    image_path: "assets/icons/app_icon.png"
 
 flutter:
   uses-material-design: true

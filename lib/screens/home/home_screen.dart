@@ -10,6 +10,7 @@ import 'package:css_mastery_app/models/syllabus/day_model.dart';
 import 'package:css_mastery_app/models/user/progress_model.dart';
 import 'package:css_mastery_app/core/services/background/notification_service.dart';
 import 'package:css_mastery_app/widgets/home/datetime_display.dart';
+import 'package:css_mastery_app/providers/quote_provider.dart';
 
 // Screens
 import 'package:css_mastery_app/screens/syllabus/syllabus_screen.dart';
@@ -63,6 +64,8 @@ class _HomeScreenState extends State<HomeScreen> {
       provider.checkAndInsertSampleData('default_user');
     });
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -261,6 +264,11 @@ class HomeContent extends StatelessWidget {
 
           // Date & Time Display
           const DateTimeDisplay(),
+
+          const SizedBox(height: 24),
+
+          // Motivational Quote
+          const MotivationalQuoteCard(),
 
           const SizedBox(height: 24),
 
@@ -529,54 +537,7 @@ class HomeContent extends StatelessWidget {
             ],
           ),
 
-          const SizedBox(height: 16),
 
-          // Motivational Quote
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              gradient: AppColors.primaryGradient,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Daily Motivation',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white70,
-                    letterSpacing: 0.5,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  '"Success is the sum of small efforts repeated day in and day out."',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w400,
-                    height: 1.5,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    '— Robert Collier',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.white.withValues(alpha: 0.7),
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          const SizedBox(height: 24),
 
           // Study Plan Card
           SecondaryButton(
@@ -858,6 +819,109 @@ class HomeContent extends StatelessWidget {
               backgroundColor: AppColors.accentRed,
             ),
             child: const Text('Mark Off Day'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MotivationalQuoteCard extends StatelessWidget {
+  const MotivationalQuoteCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final quoteProvider = context.watch<QuoteProvider>();
+    final quote = quoteProvider.currentQuote;
+
+    if (quoteProvider.isLoading) {
+      return SizedBox(
+        height: 80,
+        child: Center(
+          child: CircularProgressIndicator(
+            strokeWidth: 2,
+            valueColor: AlwaysStoppedAnimation<Color>(AppColors.primaryBlue),
+          ),
+        ),
+      );
+    }
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: AppColors.primaryGradient,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(
+                Icons.format_quote,
+                color: Colors.white70,
+                size: 20,
+              ),
+              const SizedBox(width: 8),
+              const Text(
+                'Daily Motivation',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white70,
+                  letterSpacing: 0.5,
+                ),
+              ),
+              const Spacer(),
+              IconButton(
+                icon:
+                    const Icon(Icons.refresh, size: 16, color: Colors.white70),
+                onPressed: () {
+                  quoteProvider.refreshQuote();
+                },
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            quote?.text ??
+                'Success is the sum of small efforts repeated day in and day out.',
+            style: const TextStyle(
+              fontSize: 16,
+              color: Colors.white,
+              fontWeight: FontWeight.w400,
+              height: 1.5,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              '— ${quote?.author ?? 'Robert Collier'}',
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.white.withValues(alpha: 0.7),
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          ),
+          const SizedBox(height: 4),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Text(
+                quote != null ? '✨ Fresh' : '📚 Default',
+                style: TextStyle(
+                  fontSize: 9,
+                  color: Colors.white.withValues(alpha: 0.5),
+                ),
+              ),
+            ),
           ),
         ],
       ),

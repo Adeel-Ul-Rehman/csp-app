@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="css_mastery_app"
+        android:label="Mission Aqsa"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

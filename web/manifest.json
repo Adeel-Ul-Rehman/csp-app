@@ -1,11 +1,11 @@
 {
-    "name": "css_mastery_app",
-    "short_name": "css_mastery_app",
+    "name": "Mission Aqsa",
+    "short_name": "Mission Aqsa",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Mission Aqsa - CSS Exam Preparation",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

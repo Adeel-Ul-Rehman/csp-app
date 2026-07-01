@@ -1,7 +1,7 @@
 // lib/core/constants/app_strings.dart
 
 class AppStrings {
-  static const String appName = 'CSS Mastery';
+  static const String appName = 'Mission Aqsa';
   static const String appVersion = '1.0.0';
 
   // ============ AI API URLs (All Free, No API Key) ============
